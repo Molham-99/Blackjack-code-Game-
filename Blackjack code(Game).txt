@@ -1,0 +1,54 @@
+
+import random
+def my_computer(play, com):
+    computer_total = True
+    while computer_total is True :
+        second_card_to_computer= random.choices(cards, k=1)
+        computer_2 = com + second_card_to_computer
+        computer_2_sum = int(sum(computer_2))
+        final_cards_for_computer = computer_2_sum
+        if computer_2_sum < 17:
+            com = computer_2
+        else:
+            computer_total = False
+            computer_2_sum = int(sum(computer_2))
+            final_cards_for_computer = computer_2_sum
+            print(f"    Your final hand: {play},final score: {player_sum}\n    computer's final hand :{computer_2}, final score: {computer_2_sum}\n")
+    if player_sum > 21:
+        print("You went over. You lose 😭\n")
+    elif final_cards_for_computer == player_sum:
+        print(" Draw 🙃\n")
+    elif final_cards_for_computer > 21 :
+        print("Opponent went over. You win 😁\n")
+    elif player_sum > final_cards_for_computer and player_sum <= 21 :
+        print(" You win!\n")
+    else:
+        print("You lose 😤\n")
+cards = [11,2,3,4,5,6,7,8,9,10,10,10,10]
+play_again = True
+while play_again is True:
+    ask_to_play = input("Do you want to play a game of Blackjack? type 'y' or 'n':")
+    if ask_to_play == "y":
+        player = random.choices(cards, k=2)
+        computer = random.choices(cards, k=1)
+        print(f"\n    Your cards: {player}, current score: {sum(player)}  \n    Computer's first card: {computer}\n")
+        ask = True
+        while ask is True:
+            ask_for_another_card = input("Type 'y' to get anoyher card or 'n' to pass: ")
+            if ask_for_another_card == "y":
+                another_card_to_player = random.choices(cards,k=1)
+                player_2 = player + another_card_to_player
+                player_sum = int(sum(player_2))
+                if player_sum <= 21 :
+                    print(f"    Your cards: {player_2}, current score: {player_sum}  \n    Computer's first card: {computer}\n")
+                    player = player_2
+                else:
+                    ask = False
+                    print(f"    Your cards: {player_2}, current score: {player_sum}  \n    Computer's first card: {computer}\n")
+                    my_computer(player_2, computer)
+            else:
+                ask = False
+                player_sum = int(sum(player))
+                my_computer(player, computer)
+    else:
+        play_again = False
